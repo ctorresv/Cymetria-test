@@ -185,7 +185,7 @@ Si el volumen de datos creciera exponencialmente, esta arquitectura permite una 
 Más allá del CRUD básico, se implementaron detalles de UX y rendimiento para que la aplicación se sienta como un producto real:
 * **Búsqueda con Debounce:** Filtrado por nombre o email con debounce espera 300ms después de que el usuario deja de escribir antes de hacer la petición al backend. Esto evita saturar la API con peticiones innecesarias en cada pulsación de tecla.
 * **Paginación Dinámica e Inteligente:** El selector de "Filas por página" se adapta al volumen real de datos. Si solo hay 5 registros, no ofrece opciones de 10 o 25, evitando confusiones y errores de índice.
-- **Manejo Profesional de Estados:** La tabla gestiona visualmente los estados de *Carga*, *Error* (alertas claras) y *Vacío* (mensajes contextuales), garantizando que el usuario siempre tenga feedback.
+- **Manejo de Estados:** La tabla gestiona visualmente los estados de *Carga*, *Error* (alertas claras) y *Vacío* (mensajes contextuales), garantizando que el usuario siempre tenga feedback.
 
 ## 🧪 Pruebas y Calidad de Código
 
