@@ -12,7 +12,6 @@ dotenv.config({
 console.log(`[ENV] Loaded .env.${env}`);
 
 // 3. Función auxiliar para garantizar que una variable exista (Fail-Fast)
-// Si no existe y no tiene default, lanza un error inmediato al iniciar la app.
 const getEnvVar = (key: string, defaultValue?: string): string => {
 	const value = process.env[key];
 	if (value === undefined || value.trim() === "") {

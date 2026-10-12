@@ -1,4 +1,3 @@
-// src/__tests__/infrastructure/http/controllers/UserController.test.ts
 import { Request, Response } from "express";
 import { Readable } from "stream";
 import { UserController } from "../../../src/infrastructure/http/controllers/user.controller";

@@ -5,7 +5,6 @@ import { withTryCatch } from "../../../../decorators/withTryCatch";
 
 const router = Router();
 
-// Inyección limpia: resolverse una única vez al configurar las rutas
 const userController = container.resolve(UserController);
 
 router.get("/", withTryCatch(userController.getUsers.bind(userController)));

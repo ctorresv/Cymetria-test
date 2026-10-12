@@ -70,7 +70,6 @@ export function UserFormModal({ isOpen, onClose, editData }: UserFormModalProps)
     const isPending = createUserMutation.isPending || updateUserMutation.isPending;
 
     return (
-        /* 👇 Ya no envuelves en DialogContent, pones los hijos directo en Dialog */
         <Dialog isOpen={isOpen} onOpenChange={onClose}>
             <DialogHeader>
                 <DialogTitle>{editData ? "Editar Usuario" : "Crear Nuevo Usuario"}</DialogTitle>

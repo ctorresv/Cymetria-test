@@ -1,4 +1,3 @@
-// src/components/users/SearchBar.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -11,17 +10,16 @@ interface SearchBarProps {
 export function SearchBar({ onSearch }: SearchBarProps) {
     const [value, setValue] = useState("");
 
-    // Guardamos la función más reciente en un ref para evitar problemas de closure
     const onSearchRef = useRef(onSearch);
     onSearchRef.current = onSearch;
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            onSearchRef.current(value); // Usamos el ref, no la prop directa
+            onSearchRef.current(value);
         }, 300);
 
         return () => clearTimeout(timer);
-    }, [value]); // 👈 Solo value en dependencias, no onSearch
+    }, [value]);
 
     return (
         <div className="relative w-full max-w-sm">

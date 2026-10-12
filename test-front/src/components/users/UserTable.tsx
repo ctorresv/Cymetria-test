@@ -1,4 +1,3 @@
-// src/components/users/UserTable.tsx
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
@@ -33,7 +32,6 @@ export function UserTable({ search, onEdit, onDelete }: UserTableProps) {
     const totalItems = data?.total || 0;
     const totalPages = data?.totalPages || 1;
 
-    // ✅ CORRECTO: useMemo va AL PRINCIPIO del componente, antes del return
     const pageSizeOptions = useMemo(() => {
         const standardOptions = [5, 10, 25, 50];
         const validOptions = standardOptions.filter((opt) => opt <= totalItems);

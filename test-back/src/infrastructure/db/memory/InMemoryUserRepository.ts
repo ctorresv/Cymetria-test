@@ -55,7 +55,6 @@ export class InMemoryUserRepository implements UserRepository {
 	}
 
 	async findAllPaginated(page: number, pageSize: number): Promise<PaginatedUsersResult> {
-		// Ordenamiento determinístico por ID
 		const allUsers = Array.from(this.users.values()).sort((a, b) =>
 			(a.id || "").localeCompare(b.id || "")
 		);
@@ -73,8 +72,6 @@ export class InMemoryUserRepository implements UserRepository {
 			totalPages,
 		};
 	}
-
-	// Permite procesar grandes volúmenes de datos (streaming) sin bloquear memoria
 	async *findAllStream(): AsyncIterable<User> {
 		const sortedUsers = Array.from(this.users.values()).sort((a, b) =>
 			(a.id || "").localeCompare(b.id || "")

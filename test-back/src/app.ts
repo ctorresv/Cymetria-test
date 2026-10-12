@@ -1,9 +1,11 @@
 import express, { Application } from "express";
-//import HelloRoute from "./infrastructure/http/routes/v1/hello.route";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./infrastructure/http/swaggerSpec";
 import cors from "cors";
 import UserRoute from "./infrastructure/http/routes/v1/user.route";
 import sequelize from "./infrastructure/db/sequelize/config/database"
 import { errorHandler } from "./infrastructure/http/middlewares/errorHandler";
+
 
 export default class App {
 	public app: Application;
@@ -14,6 +16,7 @@ export default class App {
 		this.port = port;
 
 		this.initializeMiddlewares();
+		this.initializeSwagger();
 		this.initializeRoutes();
 		this.initializeDatabase();
 		this.initialzeSyncDatabase();
@@ -29,8 +32,12 @@ export default class App {
 		this.app.use(express.urlencoded({ extended: true }));
 	}
 
+	private initializeSwagger(): void {
+
+		this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+	}
+
 	private initializeRoutes(): void {
-		//this.app.use("/api/v1", HelloRoute);
 		this.app.use("/api/v1/users", UserRoute);
 	}
 	private initializeErrorHandling(): void {
@@ -77,7 +84,7 @@ export default class App {
 			console.table({
 				"Server is running on": `http://localhost:${this.port}`,
 				Environment: process.env.NODE_ENV,
-				Database: sequelize.getDatabaseName(), //Descomentar mas tarde
+				Database: sequelize.getDatabaseName(),
 			});
 		});
 	}

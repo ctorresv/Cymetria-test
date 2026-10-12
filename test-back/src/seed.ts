@@ -1,4 +1,3 @@
-// src/seed.ts
 import "reflect-metadata";
 import sequelize from "./infrastructure/db/sequelize/config/database";
 import { UserModel } from "./infrastructure/db/sequelize/models/user.model";
@@ -8,10 +7,10 @@ async function seed() {
         await sequelize.authenticate();
         console.log("✅ Conectado a la BD");
 
-        await sequelize.sync({ force: true }); // ⚠️ Borra y recrea la tabla
+        await sequelize.sync({ force: true }); 
         console.log("✅ Tabla sincronizada");
 
-        const TOTAL_USERS = 10; // 👈 Corregido: Ahora sí serán 5000
+        const TOTAL_USERS = 5000; 
         const users = [];
         const now = Date.now();
 
@@ -19,7 +18,6 @@ async function seed() {
             users.push({
                 name: `Usuario ${i}`,
                 email: `usuario${i}@example.com`,
-                // 👈 Diferencia de 1 minuto (60000 ms) entre cada registro
                 createdAt: new Date(now - i * 60000),
             });
         }

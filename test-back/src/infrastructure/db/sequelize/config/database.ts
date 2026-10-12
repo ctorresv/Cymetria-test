@@ -1,12 +1,11 @@
 import { Sequelize, Options } from "sequelize";
 import { ENVS_DB, ENVS_APP } from "../../../../config/envs.config";
 
-// 1. Definir las opciones de conexión con el tipo oficial de Sequelize
+
 const sequelizeOptions: Options = {
     host: ENVS_DB.DB_HOST,
-    port: parseInt(ENVS_DB.DB_PORT, 10), // Base 10 explícita para evitar warnings
+    port: parseInt(ENVS_DB.DB_PORT, 10), 
     dialect: "postgres",
-    // logging acepta boolean o una función. console.log es válido.
     logging: ENVS_APP.IS_DEVELOPMENT ? console.log : false,
     pool: {
         max: 10,
@@ -16,7 +15,6 @@ const sequelizeOptions: Options = {
     },
 };
 
-// 2. Instanciar Sequelize. 
 const sequelize = new Sequelize(
     ENVS_DB.DB_NAME,
     ENVS_DB.DB_USER,

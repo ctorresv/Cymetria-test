@@ -7,9 +7,9 @@ import {
 } from "sequelize";
 import sequelize from "../config/database";
 
-// 1. Usamos InferAttributes para que TS lea los tipos directamente de UserModel.init
+
 export interface UserAttributes extends InferAttributes<UserModel> {
-	id: CreationOptional<string>; // CreationOptional le dice a TS que la BD lo genera
+	id: CreationOptional<string>;
 	name: string;
 	email: string;
 	createdAt: CreationOptional<Date>;
@@ -21,7 +21,6 @@ export interface UserCreationAttributes extends Optional<UserAttributes, "id" | 
 export class UserModel
 	extends Model<UserAttributes, UserCreationAttributes>
 	implements UserAttributes {
-	// 2. 'declare' reemplaza a 'public' + '!'. Es la forma correcta y segura en TS.
 	declare id: CreationOptional<string>;
 	declare name: string;
 	declare email: string;

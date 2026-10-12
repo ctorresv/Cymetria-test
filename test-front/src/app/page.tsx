@@ -1,4 +1,3 @@
-// src/app/page.tsx (o src/app/users/page.tsx)
 "use client";
 
 import { useState, useEffect } from "react";
@@ -69,10 +68,9 @@ export default function UsersPage() {
 
       <SearchBar onSearch={setSearch} />
 
-      {/* Componente autónomo que maneja sus propios datos y paginación */}
+
       <UserTable onEdit={handleEdit} onDelete={handleDeleteClick} search={search} />
 
-      {/* Modales */}
       <UserFormModal
         isOpen={isFormOpen}
         onClose={() => { setIsFormOpen(false); setEditData(null); }}

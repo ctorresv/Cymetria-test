@@ -15,5 +15,5 @@ export interface UserRepository {
 	update(id: string, user: User): Promise<User>; 
 	delete(id: string): Promise<boolean>;
 	findAllPaginated(page: number, pageSize: number, search: string): Promise<PaginatedUsersResult>;
-	findAllStream(): AsyncIterable<User>; // Para exportación por bloques/streaming
+	findAllStream(): AsyncIterable<User>;
 }

@@ -1,4 +1,3 @@
-// src/infrastructure/http/controllers/UserController.ts
 import { Request, Response } from "express";
 import { injectable, inject } from "tsyringe";
 import { UserService, UpdateUserDTO } from "../../../domain/services/UserService";
@@ -25,12 +24,10 @@ export class UserController {
 		const { id } = req.params;
 		const user = await this.userService.getUserById(id);
 
-		// ¡Gracias al método toJSON() que agregamos en la Entidad, esto sale perfecto!
 		res.status(200).json(user);
 	}
 
 	async createUser(req: Request, res: Response): Promise<void> {
-		// 3. Construcción explícita del DTO para evitar campos basura
 		const createUserDTO = {
 			name: String(req.body.name || "").trim(),
 			email: String(req.body.email || "").trim().toLowerCase(),
@@ -43,7 +40,6 @@ export class UserController {
 	async updateUser(req: Request, res: Response): Promise<void> {
 		const { id } = req.params;
 
-		// 4. Construimos el DTO solo con lo que el usuario realmente envió
 		const updateUserDTO: UpdateUserDTO = {};
 		if (req.body.name !== undefined) {
 			updateUserDTO.name = String(req.body.name).trim();
@@ -65,11 +61,9 @@ export class UserController {
 	async exportUsers(_req: Request, res: Response): Promise<void> {
 		const fileStream = this.userExportService.exportAllUsers();
 
-		// Encabezados HTTP para forzar la descarga
 		res.setHeader("Content-Type", "text/csv; charset=utf-8");
 		res.setHeader("Content-Disposition", 'attachment; filename="usuarios.csv"');
 
-		// El piping maneja el stream de forma eficiente
 		fileStream.pipe(res);
 	}
 }

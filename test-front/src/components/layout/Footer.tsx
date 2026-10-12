@@ -7,7 +7,7 @@ export default function Footer() {
                     <span className="font-medium text-foreground"> Arquitectura Hexagonal + Next.js 16</span>.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                    © {/* {new Date().getFullYear()} */} Todos los derechos reservados.
+                    © 2026 Todos los derechos reservados.
                 </p>
             </div>
         </footer>
