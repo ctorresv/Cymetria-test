@@ -68,17 +68,75 @@ export function UserTable({ search, onEdit, onDelete }: UserTableProps) {
         );
     }
 
+    if (totalItems === 0) {
+        return (
+            <div className="flex flex-col items-center justify-center p-16 border rounded-md bg-muted/10 border-dashed">
+                <div className="rounded-full bg-muted p-4 mb-4">
+                    <AlertCircle className="h-8 w-8 text-muted-foreground animate-pulse" />
+                </div>
+                <h3 className="text-lg font-semibold text-foreground">No se encontraron usuarios</h3>
+                <p className="text-sm text-muted-foreground mt-1 text-center max-w-sm">
+                    {search ? `No hay resultados para "${search}".` : "Comienza agregando tu primer usuario al sistema."}
+                </p>
+            </div>
+        );
+    }
+
     if (!data || data.data.length === 0) {
         return (
-            <div className="text-center p-12 border rounded-md bg-muted/10">
-                <p className="text-muted-foreground">No se encontraron usuarios registrados.</p>
+            <div className="space-y-4">
+                <div className="flex flex-col items-center justify-center p-12 border rounded-md bg-muted/10">
+                    <p className="text-muted-foreground">No hay datos en esta página.</p>
+                </div>
+
+                {/* Footer de paginación siempre visible cuando hay datos totales */}
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-2">
+                    <div className="flex items-center gap-2">
+                        <label htmlFor="page-size-select" className="text-sm text-muted-foreground">
+                            Filas por página:
+                        </label>
+                        <select
+                            id="page-size-select"
+                            value={pageSize}
+                            onChange={(e) => handlePageSizeChange(e.target.value)}
+                            className="flex h-9 w-[100px] rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                            {pageSizeOptions.map((opt) => (
+                                <option key={opt} value={opt}>{opt}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        <span className="text-sm text-muted-foreground">
+                            Página {page} de {totalPages} ({totalItems} resultados)
+                        </span>
+                        <div className="flex gap-1">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                                disabled={page === 1}
+                            >
+                                <ChevronLeft className="h-4 w-4" />
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                                disabled={page >= totalPages}
+                            >
+                                <ChevronRight className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 
     return (
         <div className="space-y-4">
-            {/* Tabla de Datos */}
             <div className="rounded-md border">
                 <table className="w-full caption-bottom text-sm">
                     <thead className="[&_tr]:border-b">
@@ -113,24 +171,19 @@ export function UserTable({ search, onEdit, onDelete }: UserTableProps) {
                 </table>
             </div>
 
-            {/* Footer de Paginación */}
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 px-2">
                 <div className="flex items-center gap-2">
                     <label htmlFor="page-size-select" className="text-sm text-muted-foreground">
                         Filas por página:
                     </label>
-
                     <select
                         id="page-size-select"
                         value={pageSize}
                         onChange={(e) => handlePageSizeChange(e.target.value)}
                         className="flex h-9 w-[100px] rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        {/* ✅ CORRECTO: Solo mapeamos el array ya calculado por useMemo */}
                         {pageSizeOptions.map((opt) => (
-                            <option key={opt} value={opt}>
-                                {opt}
-                            </option>
+                            <option key={opt} value={opt}>{opt}</option>
                         ))}
                     </select>
                 </div>
@@ -144,15 +197,15 @@ export function UserTable({ search, onEdit, onDelete }: UserTableProps) {
                             variant="outline"
                             size="sm"
                             onClick={() => setPage((p) => Math.max(1, p - 1))}
-                            disabled={page === 1 || isLoading}
+                            disabled={page === 1}
                         >
                             <ChevronLeft className="h-4 w-4" />
                         </Button>
                         <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setPage((p) => p + 1)}
-                            disabled={page >= totalPages || isLoading}
+                            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                            disabled={page >= totalPages}
                         >
                             <ChevronRight className="h-4 w-4" />
                         </Button>
