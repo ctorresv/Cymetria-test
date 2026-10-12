@@ -173,7 +173,7 @@ describe("UserService (Unit Test)", () => {
 
 			const result = await userService.getUsersPaginated();
 
-			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 10);
+			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 10, "");
 			expect(result).toEqual(mockResult);
 		});
 
@@ -190,7 +190,7 @@ describe("UserService (Unit Test)", () => {
 
 			await userService.getUsersPaginated(3, 20);
 
-			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(3, 20);
+			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(3, 20, "");
 		});
 
 		it("debe sanitizar página negativa a 1", async () => {
@@ -206,7 +206,7 @@ describe("UserService (Unit Test)", () => {
 
 			await userService.getUsersPaginated(-5, 10);
 
-			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 10);
+			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 10, "");
 		});
 
 		it("debe sanitizar pageSize mayor a 100", async () => {
@@ -222,7 +222,7 @@ describe("UserService (Unit Test)", () => {
 
 			await userService.getUsersPaginated(1, 500);
 
-			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 100);
+			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 100, "");
 		});
 
 		it("debe sanitizar pageSize negativo o cero a 1", async () => {
@@ -238,7 +238,7 @@ describe("UserService (Unit Test)", () => {
 
 			await userService.getUsersPaginated(1, 0);
 
-			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 1);
+			expect(mockUserRepository.findAllPaginated).toHaveBeenCalledWith(1, 1, "");
 		});
 	});
 });

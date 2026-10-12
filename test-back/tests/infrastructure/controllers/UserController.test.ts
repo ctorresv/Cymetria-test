@@ -51,7 +51,7 @@ describe("UserController (Unit Test)", () => {
 
 			await userController.getUsers(mockRequest as Request, mockResponse as Response);
 
-			expect(mockUserService.getUsersPaginated).toHaveBeenCalledWith(1, 10);
+			expect(mockUserService.getUsersPaginated).toHaveBeenCalledWith(1, 10, undefined);
 			expect(mockResponse.status).toHaveBeenCalledWith(200);
 			expect(mockResponse.json).toHaveBeenCalledWith(mockPaginatedData);
 		});
@@ -63,7 +63,7 @@ describe("UserController (Unit Test)", () => {
 
 			await userController.getUsers(mockRequest as Request, mockResponse as Response);
 
-			expect(mockUserService.getUsersPaginated).toHaveBeenCalledWith(1, 10);
+			expect(mockUserService.getUsersPaginated).toHaveBeenCalledWith(1, 10, undefined);
 		});
 	});
 
