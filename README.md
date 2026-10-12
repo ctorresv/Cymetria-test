@@ -46,6 +46,7 @@ npm run seed
 **Notas sobre el seed y la base de datos:**
 - La cantidad de usuarios generados se controla con la constante `TOTAL_USERS` dentro de `src/seed.ts`. Por defecto genera 5.000, pero puedes ajustarla según necesites.
 - Si prefieres no levantar PostgreSQL, puedes usar el repositorio en memoria. Solo descomenta la línea del `InMemoryUserRepository` en `src/container.ts` y comenta la de `SequelizeUserRepository`. Es un cambio de una línea y todo sigue funcionando igual.
+- Con el seed de 5.000 usuarios puedes probar la exportación escalable desde el frontend o directamente en Swagger (`GET /users/export`).
 
 ```bash
 # Iniciar el servidor en modo desarrollo
@@ -69,7 +70,7 @@ npm install
 # Iniciar el servidor de desarrollo
 npm run dev
 
-**El backend estará disponible en:** `http://localhost:3000`
+**El frontend estará disponible en:** `http://localhost:3000`
 
 ### 3. Ejecutar Pruebas Unitarias
 
@@ -182,8 +183,9 @@ Si el volumen de datos creciera exponencialmente, esta arquitectura permite una 
 ## ✨ Funcionalidades Adicionales (Frontend)
 
 Más allá del CRUD básico, se implementaron detalles de UX y rendimiento para que la aplicación se sienta como un producto real:
-* **Búsqueda con Debounce:** La barra de búsqueda espera 300ms después de que el usuario deja de escribir antes de hacer la petición al backend. Esto evita saturar la API con peticiones innecesarias en cada pulsación de tecla.
+* **Búsqueda con Debounce:** Filtrado por nombre o email con debounce espera 300ms después de que el usuario deja de escribir antes de hacer la petición al backend. Esto evita saturar la API con peticiones innecesarias en cada pulsación de tecla.
 * **Paginación Dinámica e Inteligente:** El selector de "Filas por página" se adapta al volumen real de datos. Si solo hay 5 registros, no ofrece opciones de 10 o 25, evitando confusiones y errores de índice.
+- **Manejo Profesional de Estados:** La tabla gestiona visualmente los estados de *Carga*, *Error* (alertas claras) y *Vacío* (mensajes contextuales), garantizando que el usuario siempre tenga feedback.
 
 ## 🧪 Pruebas y Calidad de Código
 
